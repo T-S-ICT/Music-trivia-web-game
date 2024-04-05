@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetUsersResponse {
+public class GetAllUsersResponse {
     private List<Users> getUsers;
 }

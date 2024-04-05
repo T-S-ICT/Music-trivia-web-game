@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 import sem6.IndividualProject.MusicTrivia.business.UsersService;
 import sem6.IndividualProject.MusicTrivia.domain.CreateUsersRequest;
 import sem6.IndividualProject.MusicTrivia.domain.CreateUsersResponse;
-import sem6.IndividualProject.MusicTrivia.domain.GetUsersResponse;
+import sem6.IndividualProject.MusicTrivia.domain.GetAllUsersResponse;
 import sem6.IndividualProject.MusicTrivia.domain.Users;
 import sem6.IndividualProject.MusicTrivia.persistence.UsersRepository;
 import sem6.IndividualProject.MusicTrivia.persistence.entity.UsersEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +19,7 @@ public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
 
     @Override
-    public CreateUsersResponse createUsers(CreateUsersRequest request) {
+    public CreateUsersResponse createUser(CreateUsersRequest request) {
         UsersEntity newUsers = UsersEntity.builder()
                 .username(request.getUsername())
                 .build();
@@ -33,13 +32,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public GetUsersResponse getUsers() {
+    public GetAllUsersResponse getUsers() {
         List<Users> users = usersRepository.getUsers()
                 .stream()
                 .map(UsersConverter::convert)
                 .toList();
 
-        return GetUsersResponse.builder()
+        return GetAllUsersResponse.builder()
                 .getUsers(users)
                 .build();
     }

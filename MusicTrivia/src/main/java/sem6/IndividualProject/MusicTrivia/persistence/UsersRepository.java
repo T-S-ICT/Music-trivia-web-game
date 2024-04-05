@@ -1,16 +1,20 @@
 package sem6.IndividualProject.MusicTrivia.persistence;
 
-import sem6.IndividualProject.MusicTrivia.domain.Users;
 import sem6.IndividualProject.MusicTrivia.persistence.entity.UsersEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersRepository {
     boolean existsById(long id);
 
-    List<UsersEntity> getUsers();
+    List<UsersEntity> findAll();
 
-    UsersEntity save(UsersEntity users);
+    Optional<UsersEntity> findById(long id);
+
+    UsersEntity save(UsersEntity usersEntity);
+
+    void deleteById(long id);
 
 
 }

@@ -10,6 +10,9 @@ import sem6.IndividualProject.MusicTrivia.business.UsersService;
 import sem6.IndividualProject.MusicTrivia.domain.CreateUsersRequest;
 import sem6.IndividualProject.MusicTrivia.domain.CreateUsersResponse;
 import sem6.IndividualProject.MusicTrivia.domain.GetAllUsersResponse;
+import sem6.IndividualProject.MusicTrivia.domain.Users;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -26,5 +29,20 @@ public class UsersController {
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getUsers(){
         return ResponseEntity.ok(usersService.getUsers());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int id){
+        usersService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Users> getUser(@PathVariable(value = "id") final long id){
+        final Optional<Users> userOptional = usersService.getUser(id);
+        if(userOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(userOptional.get());
     }
 }

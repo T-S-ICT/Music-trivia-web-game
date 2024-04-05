@@ -3,14 +3,12 @@ package sem6.IndividualProject.MusicTrivia.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import sem6.IndividualProject.MusicTrivia.business.UsersService;
-import sem6.IndividualProject.MusicTrivia.domain.CreateUsersRequest;
-import sem6.IndividualProject.MusicTrivia.domain.CreateUsersResponse;
-import sem6.IndividualProject.MusicTrivia.domain.GetAllUsersResponse;
-import sem6.IndividualProject.MusicTrivia.domain.Users;
+import sem6.IndividualProject.MusicTrivia.domain.*;
 import sem6.IndividualProject.MusicTrivia.persistence.UsersRepository;
 import sem6.IndividualProject.MusicTrivia.persistence.entity.UsersEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,7 +31,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public GetAllUsersResponse getUsers() {
-        List<Users> users = usersRepository.getUsers()
+        List<Users> users = usersRepository.findAll()
                 .stream()
                 .map(UsersConverter::convert)
                 .toList();
@@ -41,5 +39,20 @@ public class UsersServiceImpl implements UsersService {
         return GetAllUsersResponse.builder()
                 .getUsers(users)
                 .build();
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        usersRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Users> getUser(long id) {
+        return usersRepository.findById(id).map(UsersConverter::convert);
+    }
+
+    @Override
+    public void updateUser(UpdateUsersRequest request) {
+
     }
 }

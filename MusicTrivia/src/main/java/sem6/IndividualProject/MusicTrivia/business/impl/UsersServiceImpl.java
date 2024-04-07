@@ -3,7 +3,7 @@ package sem6.IndividualProject.MusicTrivia.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import sem6.IndividualProject.MusicTrivia.business.UsersService;
-import sem6.IndividualProject.MusicTrivia.domain.*;
+import sem6.IndividualProject.MusicTrivia.domain.users.*;
 import sem6.IndividualProject.MusicTrivia.persistence.UsersRepository;
 import sem6.IndividualProject.MusicTrivia.persistence.entity.UsersEntity;
 
@@ -53,6 +53,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void updateUser(UpdateUsersRequest request) {
-
+        //Not implement yet
     }
 }

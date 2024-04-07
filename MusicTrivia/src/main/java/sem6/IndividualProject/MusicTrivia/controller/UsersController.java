@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sem6.IndividualProject.MusicTrivia.business.UsersService;
-import sem6.IndividualProject.MusicTrivia.domain.CreateUsersRequest;
-import sem6.IndividualProject.MusicTrivia.domain.CreateUsersResponse;
-import sem6.IndividualProject.MusicTrivia.domain.GetAllUsersResponse;
-import sem6.IndividualProject.MusicTrivia.domain.Users;
+import sem6.IndividualProject.MusicTrivia.domain.users.CreateUsersRequest;
+import sem6.IndividualProject.MusicTrivia.domain.users.CreateUsersResponse;
+import sem6.IndividualProject.MusicTrivia.domain.users.GetAllUsersResponse;
+import sem6.IndividualProject.MusicTrivia.domain.users.Users;
 
 import java.util.Optional;
 

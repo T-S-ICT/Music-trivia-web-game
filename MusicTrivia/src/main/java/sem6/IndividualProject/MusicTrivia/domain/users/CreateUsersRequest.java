@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.domain;
+package sem6.IndividualProject.MusicTrivia.domain.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUsersResponse {
-    private Long id;
+public class CreateUsersRequest {
+    private String username;
 }

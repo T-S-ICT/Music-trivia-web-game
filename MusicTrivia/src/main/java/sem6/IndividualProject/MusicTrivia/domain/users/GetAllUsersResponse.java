@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.domain;
+package sem6.IndividualProject.MusicTrivia.domain.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

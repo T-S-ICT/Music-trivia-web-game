@@ -1,6 +1,6 @@
 package sem6.IndividualProject.MusicTrivia.business;
 
-import sem6.IndividualProject.MusicTrivia.domain.*;
+import sem6.IndividualProject.MusicTrivia.domain.users.*;
 
 import java.util.Optional;
 

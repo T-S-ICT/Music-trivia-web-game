@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UsersService {
     CreateUsersResponse createUser(CreateUsersRequest request);
-    GetAllUsersResponse getUsers();
+    GetAllUsersResponse getAllUser();
     void deleteUser(long id);
     Optional<Users> getUser(long id);
     void updateUser(UpdateUsersRequest request);

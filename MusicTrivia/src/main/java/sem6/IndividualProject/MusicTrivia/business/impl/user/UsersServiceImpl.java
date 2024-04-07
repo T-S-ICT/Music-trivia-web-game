@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.business.impl;
+package sem6.IndividualProject.MusicTrivia.business.impl.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public GetAllUsersResponse getUsers() {
+    public GetAllUsersResponse getAllUser() {
         List<Users> users = usersRepository.findAll()
                 .stream()
                 .map(UsersConverter::convert)
                 .toList();
 
         return GetAllUsersResponse.builder()
-                .getUsers(users)
+                .getAllUser(users)
                 .build();
     }
 

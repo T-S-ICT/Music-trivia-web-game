@@ -27,8 +27,8 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<GetAllUsersResponse> getUsers(){
-        return ResponseEntity.ok(usersService.getUsers());
+    public ResponseEntity<GetAllUsersResponse> getAllUser(){
+        return ResponseEntity.ok(usersService.getAllUser());
     }
 
     @DeleteMapping("{id}")

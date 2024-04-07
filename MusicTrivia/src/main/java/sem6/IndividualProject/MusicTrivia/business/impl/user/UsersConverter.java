@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.business.impl;
+package sem6.IndividualProject.MusicTrivia.business.impl.user;
 
 import sem6.IndividualProject.MusicTrivia.domain.users.Users;
 import sem6.IndividualProject.MusicTrivia.persistence.entity.UsersEntity;

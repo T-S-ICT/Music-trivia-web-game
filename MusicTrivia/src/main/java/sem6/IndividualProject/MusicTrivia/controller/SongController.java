@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/songs")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class SongController {
     private final SongService songService;
 

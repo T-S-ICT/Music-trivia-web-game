@@ -15,6 +15,14 @@ import java.util.Optional;
 public class SongServiceImpl implements SongService {
 private final SongRepository songRepository;
 
+
+    /**
+     * Create Song
+     * @param request
+     * @return song id
+     *
+     * @should Create a song
+     */
     @Override
     public CreateSongResponse createSong(CreateSongRequest request) {
         SongEntity newSong = SongEntity.builder()

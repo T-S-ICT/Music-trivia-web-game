@@ -25,6 +25,10 @@ jobs:
       uses: actions/checkout@v4
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v3
+    - name: Grant execute permission to Gradle wrapper script
+      run:  |
+        cd MusicTrivia
+        chmod +x gradlew
     - name: Build with Gradle
       run:  |
         cd MusicTrivia

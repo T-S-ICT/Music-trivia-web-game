@@ -19,9 +19,9 @@ class SongServiceImplTest {
         SongService songService = new SongServiceImpl(new FakeSongRepositoryImpl());
 
         CreateSongRequest request = CreateSongRequest.builder().songName("Fat lip")
-                .genre("Punk").artistName("Sum41").year("2000").build();
+                .genre("Punk").artistName("Sum4").year("2000").build();
 
-        SongEntity entity = SongEntity.builder().id(1L).songName("Fat lip").artistName("Sum41")
+        SongEntity entity = SongEntity.builder().id(1L).songName("Fat lip").artistName("Sum4")
                 .genre("Punk").year("2000").build();
 
         CreateSongResponse expected = CreateSongResponse.builder().id(1L).build();

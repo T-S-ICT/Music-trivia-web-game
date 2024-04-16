@@ -32,7 +32,7 @@ jobs:
     - name: Build with Gradle
       run:  |
         cd MusicTrivia
-        ./gradlew build
+        ./gradlew assemble
 
     - name: Test with Gradle
       run: ./gradlew test

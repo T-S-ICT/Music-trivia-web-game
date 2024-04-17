@@ -20,7 +20,7 @@ jobs:
     - run: |
         cd MusicTrivia
         chmod +x gradlew
-        ./gradlew build --no-daemon
+        ./gradlew assemble --no-daemon
 
     - name: Test with Gradle
       run: |

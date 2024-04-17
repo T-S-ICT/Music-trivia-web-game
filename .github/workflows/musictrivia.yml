@@ -23,4 +23,6 @@ jobs:
         ./gradlew build --no-daemon
 
     - name: Test with Gradle
-      run: ./gradlew test
+      run: |
+        cd MusicTrivia
+        ./gradlew test

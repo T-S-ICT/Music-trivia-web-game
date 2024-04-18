@@ -62,7 +62,7 @@ jobs:
     - name: Build Docker image
       run: |
         cd MusicTrivia
-        docker build -t tonyj3/music-trivia-backend .
+        docker build -t tonyj3/music-trivia-backend:latest .
 
     - name: Push Docker image
       run: |

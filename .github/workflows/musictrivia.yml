@@ -59,13 +59,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
+    - name: Build Docker and push docker image
       run: |
         cd MusicTrivia
-        docker build -t tonyj3/music-trivia-backend:latest .
-
-    - name: Push Docker image
-      run: |
-        cd MusicTrivia
-        docker push tonyj3/music-trivia-backend:latest
+        docker buildx build --platform linux/amd64,linux/arm64 -t tonyj3/music-trivia-backend:$GITHUB_SHA .
+        docker push tonyj3/music-trivia-backend:$GITHUB_SHA
     

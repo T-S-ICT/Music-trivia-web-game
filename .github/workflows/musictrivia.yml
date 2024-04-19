@@ -3,7 +3,7 @@ name: MusicTrivia
 on:
   push:
     branches:
-      - feature-song-function
+      - development
 
 jobs:
   build:

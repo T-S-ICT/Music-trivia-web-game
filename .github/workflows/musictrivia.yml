@@ -71,6 +71,6 @@ jobs:
     - name: Build and push Docker image
       run: |
         cd MusicTrivia
-        docker build -t tonyj3/music-trivia-backend:test .
-        docker push tonyj3/music-trivia-backend:test
+        docker build -t tonyj3/music-trivia-backend:latest .
+        docker push tonyj3/music-trivia-backend:latest
     

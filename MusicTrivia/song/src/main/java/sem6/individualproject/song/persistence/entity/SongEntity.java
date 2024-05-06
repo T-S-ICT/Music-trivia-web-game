@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.persistence.entity;
+package sem6.individualproject.song.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

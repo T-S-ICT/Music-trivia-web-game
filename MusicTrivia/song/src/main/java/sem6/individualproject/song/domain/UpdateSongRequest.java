@@ -1,4 +1,4 @@
-package sem6.IndividualProject.MusicTrivia.persistence.entity;
+package sem6.individualproject.song.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SongEntity {
+public class UpdateSongRequest {
     private Long id;
     private String songName;
     private String artistName;

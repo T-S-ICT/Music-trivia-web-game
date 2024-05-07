@@ -3,6 +3,7 @@ package sem6.individualproject.song.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import sem6.individualproject.song.business.SongService;
+import sem6.individualproject.song.business.exception.SongExistException;
 import sem6.individualproject.song.domain.*;
 import sem6.individualproject.song.persistence.SongRepository;
 import sem6.individualproject.song.persistence.entity.SongEntity;
@@ -18,9 +19,13 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public CreateSongResponse createSong(CreateSongRequest request) {
+        if(songRepository.existsBySongNameAndAndArtistName(request.getSongName(), request.getArtistName())){
+            throw new SongExistException();
+        }
+
         SongEntity newSong = SongEntity.builder()
-                .songName(request.getSongName())
-                .artistName(request.getArtistName())
+                .songName(CapitalizeEachWord(request.getSongName().split(" ")))
+                .artistName(CapitalizeEachWord(request.getArtistName().split(" ")))
                 .genre(request.getGenre())
                 .year(request.getYear())
                 .build();
@@ -30,6 +35,17 @@ public class SongServiceImpl implements SongService {
         return CreateSongResponse.builder()
                 .id(savedSong.getId())
                 .build();
+    }
+
+    private String CapitalizeEachWord(String[] words){
+        //Capitalize each part of the words in the song
+        StringBuilder titleBuilder = new StringBuilder();
+        for (String word: words){
+            //Capitalize the first letter of the word
+            titleBuilder.append(Character.toUpperCase(word.charAt(0)) + word.substring(1)).append(" ");
+        }
+        String title = titleBuilder.toString().trim();
+        return title;
     }
 
     @Override

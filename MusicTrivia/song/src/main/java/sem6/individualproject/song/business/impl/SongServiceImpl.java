@@ -78,7 +78,8 @@ public class SongServiceImpl implements SongService {
             throw new InvalidSongException("SONG_ID_INVALID");
         }
 
-        if(songRepository.existsBySongNameAndAndArtistName(request.getSongName(), request.getArtistName())){
+        if(songRepository.existsBySongNameAndAndArtistNameAndGenreAndYear(request.getSongName(), request.getArtistName(),
+                request.getGenre(), request.getYear())){
             throw new SongExistException();
         }
 

@@ -3,10 +3,10 @@ package sem6.individualproject.song.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import sem6.individualproject.song.business.SongService;
+import sem6.individualproject.song.business.exception.InvalidSongException;
 import sem6.individualproject.song.business.exception.SongExistException;
 import sem6.individualproject.song.domain.*;
 import sem6.individualproject.song.persistence.SongRepository;
-import sem6.individualproject.song.persistence.entity.GenreEnum;
 import sem6.individualproject.song.persistence.entity.SongEntity;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class SongServiceImpl implements SongService {
         }
 
         SongEntity newSong = SongEntity.builder()
-                .songName(CapitalizeEachWord(request.getSongName().split(" ")))
-                .artistName(CapitalizeEachWord(request.getArtistName().split(" ")))
+                .songName(CapitalizeEachWord(request.getSongName().toLowerCase().split(" ")))
+                .artistName(CapitalizeEachWord(request.getArtistName().toLowerCase().split(" ")))
                 .genre(request.getGenre())
                 .year(request.getYear())
                 .build();
@@ -73,6 +73,21 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public void updateSong(UpdateSongRequest request) {
-        //Not yet implemented
+        Optional<SongEntity> songEntityOptional = songRepository.findById(request.getId());
+        if(songEntityOptional.isEmpty()){
+            throw new InvalidSongException("SONG_ID_INVALID");
+        }
+
+        if(songRepository.existsBySongNameAndAndArtistName(request.getSongName(), request.getArtistName())){
+            throw new SongExistException();
+        }
+
+        SongEntity songEntity = songEntityOptional.get();
+        songEntity.setSongName(CapitalizeEachWord(request.getSongName().toLowerCase().split(" ")));
+        songEntity.setArtistName(CapitalizeEachWord(request.getArtistName().toLowerCase().split(" ")));
+        songEntity.setGenre(request.getGenre());
+        songEntity.setYear(request.getYear());
+
+        songRepository.save(songEntity);
     }
 }

@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sem6.individualproject.song.business.SongService;
-import sem6.individualproject.song.domain.CreateSongRequest;
-import sem6.individualproject.song.domain.CreateSongResponse;
-import sem6.individualproject.song.domain.GetAllSongResponse;
-import sem6.individualproject.song.domain.Song;
+import sem6.individualproject.song.domain.*;
 
 import java.util.Optional;
 
@@ -43,5 +40,13 @@ public class SongController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(songOptional.get());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateSong(@PathVariable("id") long id,
+                                           @RequestBody @Valid UpdateSongRequest request){
+        request.setId(id);
+        songService.updateSong(request);
+        return ResponseEntity.noContent().build();
     }
 }

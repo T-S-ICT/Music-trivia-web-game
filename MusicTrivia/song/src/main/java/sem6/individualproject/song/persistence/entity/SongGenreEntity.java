@@ -11,7 +11,7 @@ import lombok.*;
 */
 //@Entity
 //@Table(name = "song_genre")
-public class SongGenreEntity {
+//public class SongGenreEntity {
     /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,4 +28,4 @@ public class SongGenreEntity {
     @EqualsAndHashCode.Exclude
     private SongEntity song;
     */
-}
+//}

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import sem6.individualproject.song.persistence.entity.GenreEnum;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -15,5 +17,5 @@ public class UpdateSongRequest {
     private String songName;
     private String artistName;
     private GenreEnum genre;
-    private String year;
+    private LocalDateTime year;
 }

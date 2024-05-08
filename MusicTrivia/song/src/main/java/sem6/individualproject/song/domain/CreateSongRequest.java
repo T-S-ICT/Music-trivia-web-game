@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sem6.individualproject.song.persistence.entity.GenreEnum;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,6 @@ import java.time.LocalDateTime;
 public class CreateSongRequest {
     private String songName;
     private String artistName;
-    private String genre;
+    private GenreEnum genre;
     private LocalDateTime year;
 }

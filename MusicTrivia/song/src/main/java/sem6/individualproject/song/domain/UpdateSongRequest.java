@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sem6.individualproject.song.persistence.entity.GenreEnum;
 
 @Builder
 @Data
@@ -13,6 +14,6 @@ public class UpdateSongRequest {
     private Long id;
     private String songName;
     private String artistName;
-    private String genre;
+    private GenreEnum genre;
     private String year;
 }

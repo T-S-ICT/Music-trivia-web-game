@@ -30,9 +30,10 @@ public class SongEntity {
     @Column(name = "artist_name")
     private String artistName;
 
-    @NotBlank
+    @NotNull
     @Column(name = "genre")
-    private String genre;
+    @Enumerated(EnumType.STRING)
+    private GenreEnum genre;
 
     @NotNull
     @Column(name = "publish_year")

@@ -6,6 +6,7 @@ import sem6.individualproject.song.business.SongService;
 import sem6.individualproject.song.business.exception.SongExistException;
 import sem6.individualproject.song.domain.*;
 import sem6.individualproject.song.persistence.SongRepository;
+import sem6.individualproject.song.persistence.entity.GenreEnum;
 import sem6.individualproject.song.persistence.entity.SongEntity;
 
 import java.util.List;

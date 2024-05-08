@@ -1,4 +1,4 @@
-package sem6.individualproject.song.persistence.entity;
+/*package sem6.individualproject.song.persistence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,10 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
-@Entity
-@Table(name = "song_genre")
+*/
+//@Entity
+//@Table(name = "song_genre")
 public class SongGenreEntity {
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -26,6 +27,5 @@ public class SongGenreEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private SongEntity song;
-
-
+    */
 }

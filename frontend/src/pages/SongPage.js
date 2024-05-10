@@ -1,43 +1,46 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import "../css/Spacing.css";
 
-function SongPage(){
-    const[songs, setSongs] = useState([])
+function SongPage() {
+    const [songs, setSongs] = useState([])
 
     const fetchSongs = async () => {
-        try{
+        try {
             const response = await axios.get('http://localhost:8081/songs');
             console.log(response.data.getAllSong)
             setSongs(response.data.getAllSong)
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         fetchSongs();
-    },[]);
+    }, []);
 
-    const s = songs.map((song, id) =>{
-        return <Container key={id}>
-            <Row>
-                <Col>
-                    <h3>{song.songName}</h3>
-                    <p>By {song.artistName}</p>
-                    <p>From {new Date (`${song.year}`).getFullYear()}</p>
-                </Col>
-            </Row>
-        </Container>
+    const s = songs.map((song, id) => {
+        return <Col key={id}>
+            <Card style={{ width: '18rem' }} bg="success" text="white" key={id}>
+                <Card.Body>
+                    <Card.Title>{song.songName}</Card.Title>
+                    <Card.Subtitle>By {song.artistName}</Card.Subtitle>
+                    <p>From {new Date(`${song.year}`).getFullYear()}</p>
+                </Card.Body>
+            </Card>
+        </Col>
     })
 
-    return(
-        <>
-            {s}
-        </>
+    return (
+        <div className="topSpace">
+            <Row xs={1} md={4} className="g-4">
+                {s}
+            </Row>
+        </div>
     );
 }
 

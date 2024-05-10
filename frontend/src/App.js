@@ -12,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} ></Route>
+          <Route path='/Song' element={<SongPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

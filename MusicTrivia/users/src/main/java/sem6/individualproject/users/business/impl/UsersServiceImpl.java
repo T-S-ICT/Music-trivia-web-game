@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import sem6.individualproject.users.business.UsersService;
 import sem6.individualproject.users.business.exception.InvalidUsersException;
+import sem6.individualproject.users.business.exception.PasswordException;
 import sem6.individualproject.users.business.exception.UserExistException;
 import sem6.individualproject.users.domain.*;
 import sem6.individualproject.users.persistence.UsersRepository;
@@ -69,5 +70,28 @@ public class UsersServiceImpl implements UsersService {
         usersEntity.setEmail(request.getEmail());
 
         usersRepository.save(usersEntity);
+    }
+
+    @Override
+    public String updatePassword(UpdatePasswordRequest request) {
+        Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
+        if(usersEntityOptional.isEmpty()){
+            throw new InvalidUsersException("USER_ID_INVALID");
+        }
+
+        if (!usersRepository.existsByIdAndPassword(request.getId(),request.getOldPassword())){
+            throw new PasswordException("Password is incorrect.");
+        }
+
+        if(!request.getNewPassword().equals(request.getRepeatNewPassword())){
+            throw new PasswordException("Password is not the same.");
+        }
+
+        UsersEntity usersEntity = usersEntityOptional.get();
+        usersEntity.setPassword(request.getNewPassword());
+
+        usersRepository.save(usersEntity);
+        //return UpdatePasswordResponse.builder().response("Password successfully changed.").build();
+        return "Password successfully changed.";
     }
 }

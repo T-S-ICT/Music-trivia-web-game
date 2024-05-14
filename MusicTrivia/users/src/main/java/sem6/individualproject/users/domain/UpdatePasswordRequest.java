@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class UpdateUsersRequest {
+@NoArgsConstructor
+public class UpdatePasswordRequest {
     private Long id;
-    private String email;
+    private String oldPassword;
+    private String newPassword;
+    private String repeatNewPassword;
 }

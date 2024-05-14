@@ -5,11 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class UpdateUsersRequest {
-    private Long id;
-    private String email;
+@NoArgsConstructor
+public class UpdatePasswordResponse {
+    private String response;
 }

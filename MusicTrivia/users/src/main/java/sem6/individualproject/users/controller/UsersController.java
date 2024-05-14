@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sem6.individualproject.users.business.UsersService;
-import sem6.individualproject.users.domain.CreateUsersRequest;
-import sem6.individualproject.users.domain.CreateUsersResponse;
-import sem6.individualproject.users.domain.GetAllUsersResponse;
-import sem6.individualproject.users.domain.Users;
+import sem6.individualproject.users.domain.*;
 
 import java.util.Optional;
 
@@ -44,5 +41,21 @@ public class UsersController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(userOptional.get());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
+                                           @RequestBody @Valid UpdateUsersRequest request){
+        request.setId(id);
+        usersService.updateUser(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/password/{id}")
+    public ResponseEntity<String> changePassword(@PathVariable("id") long id,
+                                           @RequestBody @Valid UpdatePasswordRequest request){
+        request.setId(id);
+        String response = usersService.updatePassword(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

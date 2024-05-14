@@ -10,4 +10,5 @@ public interface UsersService {
     void deleteUser(long id);
     Optional<Users> getUser(long id);
     void updateUser(UpdateUsersRequest request);
+    String updatePassword(UpdatePasswordRequest request);
 }

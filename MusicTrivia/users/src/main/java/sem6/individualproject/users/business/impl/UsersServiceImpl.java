@@ -3,6 +3,7 @@ package sem6.individualproject.users.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sem6.individualproject.users.business.AccessTokenEncoder;
 import sem6.individualproject.users.business.UsersService;
 import sem6.individualproject.users.business.exception.EmailExistException;
 import sem6.individualproject.users.business.exception.InvalidUsersException;
@@ -23,6 +24,8 @@ import java.util.Set;
 public class UsersServiceImpl implements UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccessTokenEncoder encoder;
+    private final AccessToken accessToken;
 
     @Override
     public CreateUsersResponse createUser(CreateUsersRequest request) {
@@ -46,8 +49,20 @@ public class UsersServiceImpl implements UsersService {
 
         UsersEntity savedUsers = usersRepository.save(newUsers);
 
+        List<String> roles = savedUsers.getUserRoles().stream()
+                .map(userRoles -> userRoles.getRole().toString())
+                .toList();
+
+        //Look for another way to fix encode
+        String token = encoder.encode(
+                AccessToken.builder()
+                        .subject(savedUsers.getUsername())
+                        .roles(roles)
+                        .userId(savedUsers.getId())
+                        .build());
+
         return CreateUsersResponse.builder()
-                .id(savedUsers.getId())
+                .accessToken(token)
                 .build();
     }
 

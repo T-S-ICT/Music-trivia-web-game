@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -30,4 +32,7 @@ public class UsersEntity {
     @NotBlank
     @Column(name = "password")
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "users")
+    private Set<UserRoleEntity> userRoles;
 }

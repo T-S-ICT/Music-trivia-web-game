@@ -111,13 +111,12 @@ public class UsersServiceImpl implements UsersService {
     public String updatePassword(UpdatePasswordRequest request) {
         accessTokenPermission(request.getId());
 
-        //need to add a password encoder
         Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
         if(usersEntityOptional.isEmpty()){
             throw new InvalidUsersException("USER_ID_INVALID");
         }
 
-        if (!usersRepository.existsByIdAndPassword(request.getId(),request.getOldPassword())){
+        if (!passwordEncoder.matches(request.getOldPassword(),usersEntityOptional.get().getPassword())){
             throw new PasswordException("Password is incorrect.");
         }
 
@@ -126,7 +125,8 @@ public class UsersServiceImpl implements UsersService {
         }
 
         UsersEntity usersEntity = usersEntityOptional.get();
-        usersEntity.setPassword(request.getNewPassword());
+        String encodePassword = passwordEncoder.encode(request.getNewPassword());
+        usersEntity.setPassword(encodePassword);
 
         usersRepository.save(usersEntity);
         return "Password successfully changed.";

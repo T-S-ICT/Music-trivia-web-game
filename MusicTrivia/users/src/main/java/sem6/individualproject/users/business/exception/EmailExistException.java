@@ -1,8 +1,8 @@
 package sem6.individualproject.users.business.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 
-public class EmailExistException extends HttpStatusCodeException {
-    public EmailExistException(){super(HttpStatus.BAD_REQUEST,"Email is already used.");}
+public class EmailExistException extends ResponseStatusException {
+    public EmailExistException(){super(HttpStatus.CONFLICT,"Email is already used.");}
 }

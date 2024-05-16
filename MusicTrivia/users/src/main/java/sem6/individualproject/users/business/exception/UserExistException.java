@@ -1,8 +1,8 @@
 package sem6.individualproject.users.business.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 
-public class UserExistException extends HttpStatusCodeException {
-    public UserExistException(){super(HttpStatus.IM_USED,"User already exist.");}
+public class UserExistException extends ResponseStatusException {
+    public UserExistException(){super(HttpStatus.CONFLICT,"User already exist.");}
 }

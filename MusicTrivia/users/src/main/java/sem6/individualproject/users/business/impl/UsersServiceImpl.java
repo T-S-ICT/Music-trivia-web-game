@@ -3,12 +3,10 @@ package sem6.individualproject.users.business.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sem6.individualproject.users.business.AccessTokenEncoder;
 import sem6.individualproject.users.business.UsersService;
-import sem6.individualproject.users.business.exception.EmailExistException;
-import sem6.individualproject.users.business.exception.InvalidUsersException;
-import sem6.individualproject.users.business.exception.PasswordException;
-import sem6.individualproject.users.business.exception.UserExistException;
+import sem6.individualproject.users.business.exception.*;
 import sem6.individualproject.users.domain.*;
 import sem6.individualproject.users.persistence.UsersRepository;
 import sem6.individualproject.users.persistence.entity.RoleEnum;
@@ -28,6 +26,7 @@ public class UsersServiceImpl implements UsersService {
     private final AccessToken accessToken;
 
     @Override
+    @Transactional
     public CreateUsersResponse createUser(CreateUsersRequest request) {
         if (usersRepository.existsByEmailOrUsername(request.getEmail(), request.getUsername())){
             throw new UserExistException();
@@ -38,7 +37,6 @@ public class UsersServiceImpl implements UsersService {
         UsersEntity newUsers = UsersEntity.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                //.password(request.getPassword())
                 .password(encodePassword)
                 .build();
 
@@ -80,16 +78,20 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void deleteUser(long id) {
+
         usersRepository.deleteById(id);
     }
 
     @Override
     public Optional<Users> getUser(long id) {
+        accessTokenPermission(id);
         return usersRepository.findById(id).map(UsersConverter::convert);
     }
 
     @Override
     public void updateUser(UpdateUsersRequest request) {
+        accessTokenPermission(request.getId());
+
         Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
         if(usersEntityOptional.isEmpty()){
             throw new InvalidUsersException("USER_ID_INVALID");
@@ -107,6 +109,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public String updatePassword(UpdatePasswordRequest request) {
+        accessTokenPermission(request.getId());
+
         //need to add a password encoder
         Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
         if(usersEntityOptional.isEmpty()){
@@ -126,5 +130,41 @@ public class UsersServiceImpl implements UsersService {
 
         usersRepository.save(usersEntity);
         return "Password successfully changed.";
+    }
+
+    @Override
+    public CreateLoginResponse login(CreateLoginRequest request) {
+        UsersEntity users = usersRepository.findByEmail(request.getEmail());
+        if(users == null){
+            throw new InvalidCredentialsException();
+        }
+
+        if (!passwordEncoder.matches(request.getPassword(),users.getPassword())){
+            throw new InvalidCredentialsException();
+        }
+
+        List<String> roles = users.getUserRoles().stream()
+                .map(userRole -> userRole.getRole().toString())
+                .toList();
+
+        String accessToken = encoder.encode(
+                AccessToken.builder()
+                        .subject(users.getUsername())
+                        .roles(roles)
+                        .userId(users.getId())
+                        .build());
+
+        return CreateLoginResponse.builder()
+                .accessToken(accessToken)
+                .build();
+    }
+
+    private void accessTokenPermission(long id){
+        //change accesstoken id to username.
+        if (!accessToken.hasRole(RoleEnum.ADMIN.name())){
+            if (!accessToken.getUserId().equals(id)){
+                throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
+            }
+        }
     }
 }

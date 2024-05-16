@@ -11,4 +11,6 @@ public interface UsersService {
     Optional<Users> getUser(long id);
     void updateUser(UpdateUsersRequest request);
     String updatePassword(UpdatePasswordRequest request);
+    CreateLoginResponse login(CreateLoginRequest request);
+
 }

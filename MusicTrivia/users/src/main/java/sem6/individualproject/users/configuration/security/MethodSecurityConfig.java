@@ -1,12 +1,16 @@
 package sem6.individualproject.users.configuration.security;
 
 /*import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 @Configuration
-@EnableMethodSecurity(
+@EnableGlobalMethodSecurity(
         securedEnabled = true,
-        jsr250Enabled = true
+        jsr250Enabled = true,
+        prePostEnabled = true
 )
-public class MethodSecurityConfig {
+public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 }*/

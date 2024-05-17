@@ -66,6 +66,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public GetAllUsersResponse getAllUser() {
+        adminPermission();
+
         List<Users> users = usersRepository.findAll()
                 .stream()
                 .map(UsersConverter::convert)
@@ -84,13 +86,13 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Optional<Users> getUser(long id) {
-        accessTokenPermission(id);
+        userPermission(id);
         return usersRepository.findById(id).map(UsersConverter::convert);
     }
 
     @Override
     public void updateUser(UpdateUsersRequest request) {
-        accessTokenPermission(request.getId());
+        userPermission(request.getId());
 
         Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
         if(usersEntityOptional.isEmpty()){
@@ -109,7 +111,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public String updatePassword(UpdatePasswordRequest request) {
-        accessTokenPermission(request.getId());
+        userPermission(request.getId());
 
         Optional<UsersEntity> usersEntityOptional = usersRepository.findById(request.getId());
         if(usersEntityOptional.isEmpty()){
@@ -159,12 +161,19 @@ public class UsersServiceImpl implements UsersService {
                 .build();
     }
 
-    private void accessTokenPermission(long id){
+    private void userPermission(long id){
         //change accesstoken id to username.
         if (!accessToken.hasRole(RoleEnum.ADMIN.name())){
             if (!accessToken.getUserId().equals(id)){
                 throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
             }
+        }
+    }
+
+    private void adminPermission(){
+        //change accesstoken id to username.
+        if (!accessToken.hasRole(RoleEnum.ADMIN.name())){
+            throw new UnauthorizedDataAccessException("USER_DOES_NOT_HAVE_THAT_ROLE");
         }
     }
 }

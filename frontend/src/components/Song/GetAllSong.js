@@ -3,7 +3,8 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import "../css/Spacing.css";
+import Button from 'react-bootstrap/Button';
+import "../../css/Spacing.css";
 
 function GetAllSong() {
     const [songs, setSongs] = useState([])
@@ -31,6 +32,8 @@ function GetAllSong() {
                     <Card.Subtitle>By {song.artistName}</Card.Subtitle>
                     <p>From {new Date(`${song.year}`).getFullYear()}</p>
                     <p>Genre: {song.genre}</p>
+                    <Button variant="light">Update</Button>
+                    <Button variant="danger">Delete</Button>
                 </Card.Body>
             </Card>
         </Col>

@@ -1,5 +1,5 @@
-import CreateSong from "../components/CreateSong";
-import GetAllSong from "../components/GetAllSong";
+import CreateSong from "../components/Song/CreateSong";
+import GetAllSong from "../components/Song/GetAllSong";
 import "../css/Spacing.css";
 
 function SongPage() {

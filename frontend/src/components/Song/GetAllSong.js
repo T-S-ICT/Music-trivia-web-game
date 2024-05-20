@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import "../../css/Spacing.css";
+import DeleteSong from "./DeleteSong";
 
 function GetAllSong() {
     const [songs, setSongs] = useState([])
@@ -18,6 +19,8 @@ function GetAllSong() {
         catch (err) {
             console.log(err)
         }
+
+        //<Button variant="danger">Delete</Button>
     }
 
     useEffect(() => {
@@ -33,7 +36,7 @@ function GetAllSong() {
                     <p>From {new Date(`${song.year}`).getFullYear()}</p>
                     <p>Genre: {song.genre}</p>
                     <Button variant="light">Update</Button>
-                    <Button variant="danger">Delete</Button>
+                    <DeleteSong deleteId={song.id} />
                 </Card.Body>
             </Card>
         </Col>

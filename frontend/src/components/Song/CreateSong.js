@@ -6,21 +6,34 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 function CreateSong() {
-    const reload=()=>window.location.reload();
+    const reload = () => window.location.reload();
 
     const [songName, setSongName] = useState('');
     const [artistName, setArtistName] = useState('');
     const [genre, setGenre] = useState('');
+    const [interfaceYear, setInterfaceYear] = useState('');
     const [year, setYear] = useState('');
 
     const postSong = async () => {
         try {
             const response = await axios.post('http://localhost:8081/songs',
-                { songName, artistName, genre, year})
+                { songName, artistName, genre, year })
             console.log(response)
-        } 
+        }
         catch (error) {
             console.log(error)
+        }
+    };
+
+    const handleChangeYear = (e) => {
+        const newYear = e.target.value;
+        setInterfaceYear(newYear);
+
+        if (newYear.length === 4 && !isNaN(newYear)) {
+            const newDate = new Date(Date.UTC(newYear, 0, 1)); // January 1st of the year
+            setYear(newDate);
+        } else {
+            setYear(null);
         }
     };
 
@@ -38,14 +51,14 @@ function CreateSong() {
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalSong">
                     <Form.Label column sm={2}>Song:</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="text" placeholder="Song" value={songName} onChange={(e) => setSongName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Song" value={songName} onChange={(e) => setSongName(e.target.value)} />
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalArtist">
                     <Form.Label column sm={2}>Artist:</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="text" placeholder="Artist" value={artistName} onChange={(e) => setArtistName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Artist" value={artistName} onChange={(e) => setArtistName(e.target.value)} />
                     </Col>
                 </Form.Group>
 
@@ -61,10 +74,11 @@ function CreateSong() {
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} className="mb-3" controlId="formHorizontalDate">
-                    <Form.Label column sm={2}>Date:</Form.Label>
+                <Form.Group as={Row} className="mb-3" controlId="formHorizontalYear">
+                    <Form.Label column sm={2}>Year:</Form.Label>
                     <Col sm={10}>
-                        <Form.Control type="dateTime-local" value={year} onChange={(e) => setYear(e.target.value)}/>
+                        <Form.Control type="number" placeholder="Year" min="1900" max="3000"
+                            step="1" value={interfaceYear} onChange={handleChangeYear} />
                     </Col>
                 </Form.Group>
 

@@ -3,9 +3,9 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 import "../../css/Spacing.css";
 import DeleteSong from "./DeleteSong";
+import UpdateSong from "./UpdateSong";
 
 function GetAllSong() {
     const [songs, setSongs] = useState([])
@@ -20,7 +20,7 @@ function GetAllSong() {
             console.log(err)
         }
 
-        //<Button variant="danger">Delete</Button>
+        //<Button variant="light">Update</Button>
     }
 
     useEffect(() => {
@@ -35,7 +35,8 @@ function GetAllSong() {
                     <Card.Subtitle>By {song.artistName}</Card.Subtitle>
                     <p>From {new Date(`${song.year}`).getFullYear()}</p>
                     <p>Genre: {song.genre}</p>
-                    <Button variant="light">Update</Button>
+                    
+                    <UpdateSong editId={song.id} />
                     <DeleteSong deleteId={song.id} />
                 </Card.Body>
             </Card>

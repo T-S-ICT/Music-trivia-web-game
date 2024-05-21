@@ -23,9 +23,6 @@ function DeleteSong(props) {
 
     const handleDelete = async (id, e) => {
         e.preventDefault();
-        /*axios.delete(`http://localhost:8081/songs/${id}`)
-        .then(res => console.log("Deleted", res))
-        .then(err => console.log(err))*/
 
         await deleteSong(id);
         handleClose();

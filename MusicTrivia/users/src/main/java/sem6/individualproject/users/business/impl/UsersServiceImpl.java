@@ -32,6 +32,10 @@ public class UsersServiceImpl implements UsersService {
             throw new UserExistException();
         }
 
+        if (!request.getPassword().equals(request.getConfirmPassword())){
+            throw new PasswordException("The password is not the same");
+        }
+
         String encodePassword = passwordEncoder.encode(request.getPassword());
 
         UsersEntity newUsers = UsersEntity.builder()
@@ -42,7 +46,7 @@ public class UsersServiceImpl implements UsersService {
 
         newUsers.setUserRoles(Set.of(UserRoleEntity.builder()
                 .users(newUsers)
-                .role(RoleEnum.USER)
+                .role(RoleEnum.PLAYER)
                 .build()));
 
         UsersEntity savedUsers = usersRepository.save(newUsers);
@@ -163,6 +167,7 @@ public class UsersServiceImpl implements UsersService {
 
     private void userPermission(long id){
         //change accesstoken id to username.
+        //fix jwt token for user id.
         if (!accessToken.hasRole(RoleEnum.ADMIN.name())){
             if (!accessToken.getUserId().equals(id)){
                 throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
@@ -172,6 +177,7 @@ public class UsersServiceImpl implements UsersService {
 
     private void adminPermission(){
         //change accesstoken id to username.
+        //fix jwt token for user id.
         if (!accessToken.hasRole(RoleEnum.ADMIN.name())){
             throw new UnauthorizedDataAccessException("USER_DOES_NOT_HAVE_THAT_ROLE");
         }

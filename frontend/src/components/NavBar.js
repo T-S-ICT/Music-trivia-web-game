@@ -12,6 +12,10 @@ function NavBar() {
                         <Nav.Link href="#tba">TBA</Nav.Link>
                         <Nav.Link href="#tba">TBA</Nav.Link>
                     </Nav>
+                    <Nav>
+                        <Nav.Link href="SignUp">Sign up</Nav.Link>
+                        <Nav.Link href="Login">Login</Nav.Link>
+                    </Nav>
                 </Container>
             </Navbar>
         </>

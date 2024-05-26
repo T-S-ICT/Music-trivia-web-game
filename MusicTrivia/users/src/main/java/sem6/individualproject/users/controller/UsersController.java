@@ -26,14 +26,14 @@ public class UsersController {
     }
 
     @IsAuthenticated
-    //@RolesAllowed({"ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_ADMIN"})
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUser(){
         return ResponseEntity.ok(usersService.getAllUser());
     }
 
     @IsAuthenticated
-    //@RolesAllowed({"ROLE_CLIENT", "ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_PLAYER", "ROLE_ADMIN"})
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id){
         usersService.deleteUser(id);
@@ -41,7 +41,7 @@ public class UsersController {
     }
 
     @IsAuthenticated
-    //@RolesAllowed({"ROLE_CLIENT", "ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_PLAYER", "ROLE_ADMIN"})
     @GetMapping("{id}")
     public ResponseEntity<Users> getUser(@PathVariable(value = "id") final long id){
         final Optional<Users> userOptional = usersService.getUser(id);
@@ -52,7 +52,7 @@ public class UsersController {
     }
 
     @IsAuthenticated
-    //@RolesAllowed({"ROLE_CLIENT", "ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_PLAYER", "ROLE_ADMIN"})
     @PutMapping("{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
                                            @RequestBody @Valid UpdateUsersRequest request){
@@ -62,7 +62,7 @@ public class UsersController {
     }
 
     @IsAuthenticated
-    //@RolesAllowed({"ROLE_CLIENT", "ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_PLAYER", "ROLE_ADMIN"})
     @PutMapping("/password/{id}")
     public ResponseEntity<String> changePassword(@PathVariable("id") long id,
                                            @RequestBody @Valid UpdatePasswordRequest request){

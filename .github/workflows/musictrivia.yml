@@ -40,6 +40,12 @@ jobs:
         cd MusicTrivia
         chmod +x gradlew
         ./gradlew test
+
+    - name: Sonarqube scan
+      run: |
+        cd MusicTrivia
+        chmod +x gradlew
+        ./gradlew sonar
      
   docker:
     runs-on: ubuntu-latest

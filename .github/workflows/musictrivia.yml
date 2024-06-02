@@ -3,7 +3,7 @@ name: MusicTrivia
 on:
   push:
     branches:
-      - development
+      - feature-sonarqube
 
 jobs:
   build:

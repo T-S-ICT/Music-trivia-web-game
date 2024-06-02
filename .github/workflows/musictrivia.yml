@@ -56,7 +56,13 @@ jobs:
         java-version: '21'
         cache: 'gradle'
 
-    - name: Test with Gradle
+    - name: Build with Gradle
+      run: |
+        cd MusicTrivia
+        chmod +x gradlew
+        ./gradlew assemble --no-daemon
+
+    - name: Sonarqube scan
       run: |
         cd MusicTrivia
         chmod +x gradlew

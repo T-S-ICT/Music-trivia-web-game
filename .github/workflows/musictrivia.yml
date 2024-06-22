@@ -94,12 +94,9 @@ jobs:
       continue-on-error: true
 
     - name: Run OWASP ZAP Baseline Scan
-      uses: zaproxy/action-baseline@v0.4.0
+      uses: zaproxy/action-baseline@v0.12.0
       with:
         target: 'http://localhost:8080/songs'
-        cmd_options: '-t https://raw.githubusercontent.com/zaproxy/zap-api-docs/main/scan-policy.xml'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload ZAP Report
       uses: actions/upload-artifact@v2

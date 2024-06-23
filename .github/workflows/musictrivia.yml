@@ -3,7 +3,8 @@ name: MusicTrivia
 on:
   push:
     branches:
-      - feature-security-test
+      - main
+      - development
     
   pull_request:
    types: [opened, synchronize, reopened]

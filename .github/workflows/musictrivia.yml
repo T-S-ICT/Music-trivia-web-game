@@ -101,7 +101,12 @@ jobs:
       run: |
         cd MusicTrivia
         echo "Waiting for the application to start..."
-        timeout 60s bash -c 'until curl -sSf http://localhost:8080 > /dev/null; do sleep 5; done'
+        for i in {1..20}; do
+          curl -sSf http://localhost:8080 && break
+          echo "Application not ready, retrying in 5 seconds..."
+          sleep 5
+        done
+        curl -sSf http://localhost:8080 || exit 1
 
     - name: Run OWASP ZAP Baseline Scan
       uses: zaproxy/action-baseline@v0.12.0
